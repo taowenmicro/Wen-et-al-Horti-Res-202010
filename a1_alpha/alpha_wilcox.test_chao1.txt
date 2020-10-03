@@ -1,0 +1,2 @@
+".y."	"group1"	"group2"	"p"	"p.adj"	"p.format"	"p.signif"	"method"
+"1"	"chao1"	"B80"	"LF"	0.229766270461138	0.229766270461138	"0.23"	"ns"	"Wilcoxon"
