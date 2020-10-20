@@ -1,80 +1,9 @@
-##
-################################第四次跑fishtaco前处理######
-setwd("E:/Shared_Folder/HG_kangbing/nobac_noqianheti_chuli/fishtaco_input/第四次运行fishtaco")
-otu = read.table("gg135_otu_table.txt", header=T, row.names= 1, sep="\t") 
-head(otu)
-# 转换原始数据为百分比
-norm = t(t(otu)/colSums(otu,na=T)) * 100 # normalization to total 100
-
-
-write.table(norm,"gg13.5_tu_table_norm.txt",quote = FALSE,row.names = T,
-            col.names = T,sep = "\t")
-##
-metagenome = read.table("metagenome_predictions.txt", header=T, row.names= 1, sep="\t") 
-head(metagenome)
-
-# 转换原始数据为百分比
-norm = t(t(metagenome)/colSums(metagenome,na=T)) * 100 # normalization to total 100
-
-
-write.table(norm,"metagenome_predictions_norm.txt",quote = FALSE,row.names = T,
-            col.names = T,sep = "\t")
-##
-################################第四次跑fishtaco前处理######
-###在成图之前首先我们要做一个注释文件：######
-otu = read.table("otu_table1285.txt", header=T, row.names= 1, sep="\t") 
-head(otu)
-str(otu)
-tax = read.table("97_otu_taxonomy.txt", header=F, row.names= 1, sep="\t") 
-head(tax)
-tax$tox=rownames(tax)
-str(tax)
-idx =  rownames(tax)%in%rownames(otu) 
-tax1 = tax[idx,]
-rownames(tax1)=tax1$tox
-tax1$tox<-NULL
-head(tax1)
-write.table(tax1,"tax_100.txt",quote = FALSE,row.names = T,
-            col.names = F,sep = "\t")
-##注释功能
-###########
-setwd("E:/Shared_Folder/HG_kangbing/nobac_noqianheti_chuli/fishtaco_input/chongxinyunxign")
-
-zhushi = read.table("TAXFUNpassway差异T格GC5-GF5.txt", header=T, row.names= 1, sep="\t") 
-head(zhushi)#zhushitonglu.txt
-pathway= read.table("zhushitonglu.txt", header=F, row.names= 1, sep="\t") 
-head(pathway)
-dim(pathway)
-str(pathway)
-index = merge(pathway,zhushi, by="row.names",all.x =T)
-head(index)
-dim(index)
-wwtt=data.frame(pathway=index$V2,zhushi=index$tonglu)
-write.table(wwtt,"差异通路注释文件.txt",quote = FALSE,row.names = T,
-            col.names = T,sep = "\t")
 
 ###在成图之前首先我们要做一个注释文件：#####
 
 library("FishTacoPlot")
 
 require(FishTacoPlot); require(ggplot2); require(scales); require(grid)
-
-# "ko00472",
-# "ko00944",
-# "ko03450",
-# "ko04614",
-# "ko02040",
-# "ko00440",
-# "ko00591",
-# "ko02060",
-# "ko00072",
-# "ko00120",
-# "ko02030",
-# "ko00531",
-# "ko00351",
-# "ko00643",
-# "ko00281"
-
 
 
 #"E:/Shared_Folder/HG_kangbing/nobac_noqianheti_chuli/fishtaco_input/第三次fishtacomulti_taxa"
@@ -102,22 +31,6 @@ p <- MultiFunctionTaxaContributionPlots(input_dir="../第四次结果B80富集�
                                         scale_pos_by_original_pos_sum=T)+
   scale_fill_manual(values =mi)
 p
-
-# "D-Arginine and D-ornithine metabolism",
-# "Flavone and flavonol biosynthesis",
-# "Non-homologous end-joining",
-# "Renin-angiotensin system",
-# "Flagellar assembly",
-# "Phosphonate and phosphinate metabolism",
-# "Linoleic acid metabolism",
-# "Phosphotransferase system (PTS)",
-# "Synthesis and degradation of ketone bodies",
-# "Primary bile acid biosynthesis",
-# "Bacterial chemotaxis",
-# "Glycosaminoglycan degradation",
-# "DDT degradation",
-# "Styrene degradation",
-# "Geraniol degradation"
 
 
 
@@ -150,11 +63,6 @@ p <- p + scale_x_continuous(breaks=c(1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15), lab
 
 p
 #####################分泌物中也会用差异的通路#########
-# "ko00020",
-# "ko00250",
-# "ko00290",
-# "ko00620",
-# "ko00720"
 
 
 p <- MultiFunctionTaxaContributionPlots(input_dir="../第四次结果B80富集通路",
@@ -171,12 +79,6 @@ p <- MultiFunctionTaxaContributionPlots(input_dir="../第四次结果B80富集�
                                         scale_pos_by_original_pos_sum=T)+
   scale_fill_manual(values =mi)
 p
-
-"Citrate cycle (TCA cycle)",
-"Alanine, aspartate and glutamate metabolism",
-"Valine, leucine and isoleucine biosynthesis",
-"Pyruvate metabolism",
-"Carbon fixation pathways in prokaryotes"
 
 
 
@@ -197,3 +99,59 @@ p <- p + scale_x_continuous(breaks=c(1, 2, 3,4,5), labels=c("Citrate cycle (TCA 
         legend.key.size=unit(0.8,"line"), legend.margin=unit(0.1,"line"), legend.position="bottom")
 
 p
+
+#---附件#--这部分代码用于整理fishtaco原始文件-供参考
+##
+# ################################第四次跑fishtaco前处理######
+# setwd("E:/Shared_Folder/HG_kangbing/nobac_noqianheti_chuli/fishtaco_input/第四次运行fishtaco")
+# otu = read.table("gg135_otu_table.txt", header=T, row.names= 1, sep="\t") 
+# head(otu)
+# # 转换原始数据为百分比
+# norm = t(t(otu)/colSums(otu,na=T)) * 100 # normalization to total 100
+# 
+# 
+# write.table(norm,"gg13.5_tu_table_norm.txt",quote = FALSE,row.names = T,
+#             col.names = T,sep = "\t")
+# ##
+# metagenome = read.table("metagenome_predictions.txt", header=T, row.names= 1, sep="\t") 
+# head(metagenome)
+# 
+# # 转换原始数据为百分比
+# norm = t(t(metagenome)/colSums(metagenome,na=T)) * 100 # normalization to total 100
+# 
+# 
+# write.table(norm,"metagenome_predictions_norm.txt",quote = FALSE,row.names = T,
+#             col.names = T,sep = "\t")
+# ##
+# ################################第四次跑fishtaco前处理######
+# ###在成图之前首先我们要做一个注释文件：######
+# otu = read.table("otu_table1285.txt", header=T, row.names= 1, sep="\t") 
+# head(otu)
+# str(otu)
+# tax = read.table("97_otu_taxonomy.txt", header=F, row.names= 1, sep="\t") 
+# head(tax)
+# tax$tox=rownames(tax)
+# str(tax)
+# idx =  rownames(tax)%in%rownames(otu) 
+# tax1 = tax[idx,]
+# rownames(tax1)=tax1$tox
+# tax1$tox<-NULL
+# head(tax1)
+# write.table(tax1,"tax_100.txt",quote = FALSE,row.names = T,
+#             col.names = F,sep = "\t")
+# ##注释功能
+# ###########
+# setwd("E:/Shared_Folder/HG_kangbing/nobac_noqianheti_chuli/fishtaco_input/chongxinyunxign")
+# 
+# zhushi = read.table("TAXFUNpassway差异T格GC5-GF5.txt", header=T, row.names= 1, sep="\t") 
+# head(zhushi)#zhushitonglu.txt
+# pathway= read.table("zhushitonglu.txt", header=F, row.names= 1, sep="\t") 
+# head(pathway)
+# dim(pathway)
+# str(pathway)
+# index = merge(pathway,zhushi, by="row.names",all.x =T)
+# head(index)
+# dim(index)
+# wwtt=data.frame(pathway=index$V2,zhushi=index$tonglu)
+# write.table(wwtt,"差异通路注释文件.txt",quote = FALSE,row.names = T,
+#             col.names = T,sep = "\t")
