@@ -1,0 +1,36 @@
+B801	B802	LF1	LF2	MeanDecreaseAccuracy	MeanDecreaseGini	id
+fructose 1	2.8	2.76	1.42	1.95	3.52	0.08	fructose 1
+Allantoic acid 1	2.57	1	2.9	1.95	3.44	0.06	Allantoic acid 1
+mucic acid	2.19	3.07	2.14	1.67	3.4	0.07	mucic acid
+glycolic acid	2.57	1.95	1.67	2.72	3.35	0.07	glycolic acid
+L-Threose 2	1.89	2.8	2.36	1	3.24	0.06	L-Threose 2
+1,2,4-Benzenetriol	2.46	1.34	2.72	1.57	3.24	0.05	1,2,4-Benzenetriol
+2-Methylglutaric Acid	1.42	2.46	1.34	2.85	3.22	0.06	2-Methylglutaric Acid
+Methyl Palmitoleate	1.34	2.14	2.36	1.95	3.16	0.04	Methyl Palmitoleate
+cyclohexylamine	2	2.14	1.42	2.9	3.16	0.07	cyclohexylamine
+D-Glyceric acid	2.33	1.67	1.9	2.19	3.13	0.05	D-Glyceric acid
+indole-3-acetamide 3	2.93	1.34	1.64	1.89	3.03	0.03	indole-3-acetamide 3
+pyrophosphate 3	2.76	1.95	1.34	1.42	2.99	0.04	pyrophosphate 3
+2-amino-3-(4-hydroxyphenyl)propanoic acid 1	2.61	1.64	2.14	1.42	2.98	0.05	2-amino-3-(4-hydroxyphenyl)propanoic acid 1
+Threonic acid	2.61	1.89	1	1.73	2.97	0.04	Threonic acid
+succinic acid	1.9	1	2.41	2.68	2.95	0.04	succinic acid
+Erythrose 1	1.42	2.36	1.9	2.12	2.94	0.04	Erythrose 1
+Glutaric Acid	2.14	1.42	2.12	0.58	2.93	0.05	Glutaric Acid
+galactose 1	1.13	-0.33	2	2.76	2.93	0.07	galactose 1
+canavanine degr prod	0.83	3.04	2.14	-0.69	2.93	0.06	canavanine degr prod
+glucose 1	2.57	1.95	1.9	0.33	2.91	0.06	glucose 1
+creatine	1.9	2.19	2.24	1.95	2.88	0.06	creatine
+lactose 2	1.42	1.34	2.41	1.73	2.87	0.06	lactose 2
+citric acid	1.89	2.13	1.42	1.34	2.87	0.04	citric acid
+Citraconic acid 2	1.73	1.95	2.19	2	2.86	0.05	Citraconic acid 2
+Erythrose 2	2.19	2.19	1.89	1.67	2.84	0.06	Erythrose 2
+2,3-Dihydroxypyridine	1	1.89	1.73	2.57	2.84	0.07	2,3-Dihydroxypyridine
+quinic acid	2	2	2.13	1.95	2.83	0.05	quinic acid
+N-Carbamylglutamate 4	2.97	1	1.9	1.42	2.83	0.04	N-Carbamylglutamate 4
+glycocyamine 2	2.93	1.67	1.89	0.33	2.83	0.05	glycocyamine 2
+4-Hydroxycyclohexanecarboxylic acid	2.19	2.14	1.9	1.95	2.83	0.05	4-Hydroxycyclohexanecarboxylic acid
+5-Hydroxyindole-3-acetic acid 1	1.9	2.41	1.73	0	2.82	0.06	5-Hydroxyindole-3-acetic acid 1
+xanthosine	1.67	1	1	2.8	2.78	0.04	xanthosine
+uridine 1	2.19	1.9	1.64	1.67	2.78	0.07	uridine 1
+2-hydroxypyridine	1.64	1.9	2.41	1.42	2.78	0.06	2-hydroxypyridine
+2,4,6-Trihydroxybenzophenone	1.67	2.19	1.29	1.95	2.78	0.03	2,4,6-Trihydroxybenzophenone

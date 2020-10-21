@@ -8,8 +8,10 @@ library(ggbiplot)
 design = read.table("RET_map_R.txt", header=T, row.names= 1, sep="\t") 
 head(design)
 # 读取OTU表,全部otu表没有抽平
-Root_exudates = read.delim("RET_a2缺失值处理后分泌物原始数据.txt", sep="\t",header=T,check.names=F)
+Root_exudates = read.csv("RET_a2缺失值处理后分泌物原始数据.csv",row.names = 1)
 head(Root_exudates)
+
+
 dim(Root_exudates)
 ##有一个出峰值非常离谱，这里去掉Analyte 12，手动去除
 #design3<-Root_exudates[grep("Analyte 12",Root_exudates$id),]
@@ -45,7 +47,7 @@ fengdu <- melt (count1, id="id")
 head(fengdu)
 colnames(fengdu)=c("name","break1","mean")
 
-fengdu$breaks = factor(rep(c("B801", "LF1","B802", "LF2"), c(3,3,3,3)))
+fengdu$breaks = factor(rep(c("B801", "LF1"), c(3,3)))
 fengdu$break1=NULL
 fengdu$name=NULL
 ##########下面做差异分析
@@ -62,7 +64,7 @@ head(ummarise11)
 colnames(ummarise11)=c("break1","mean","sd")
 ummarise11$mean=ummarise11$mean/100000
 ummarise11$sd=ummarise11$sd/100000
-ummarise11$break1 = factor(rep(c("CSF1", "CSF2","CRF1", "CRF2"), c(1,1,1,1)))
+ummarise11$break1 = factor(rep(c("CSF1", "CSF2"), c(1,1)))
 mi=c("#1B9E77" ,"#D95F02", "#7570B3","#E7298A")
 library("ggplot2") 
 
@@ -134,22 +136,26 @@ ggsave("a1_PCA 分泌物四组出图.pdf", p, width = 10, height = 6)
 
 #########################
 #转换成矩阵
-datatm<-as.matrix(count)
+datatm <-as.matrix(count)
 XXt<-t(datatm)
 #PLS-DA分析，这里也是选取2个主成分
-plsda.datatm <-plsda(XXt, sub_design$sample_info, ncomp = 2)
+?plsda
+plsda.datatm <-plsda(XXt, as.character(sub_design$SampleType), ncomp = 2)
 #unclass(plsda.datatm)
 #plsda.datatm$mat.c
 #PLS-DA without centroids
-mi=c("#1B9E77" ,"#D95F02", "#7570B3","#E7298A")
-pdf("a2_PLSDA分泌物四组出图eight = 6)
+mi=c("#1B9E77" ,"#D95F02")
+datatm
+
 plotIndiv(plsda.datatm , comp = c(1,2),
-          group = sub_design$SampleType, style = 'ggplot2', ind.names = FALSE, 
+          group = sub_design$SampleType, style = 'ggplot2' )
+pdf("a2_PLSDA分泌物四组出图.pdf", width = 10, height = 6)
+plotIndiv(plsda.datatm , comp = c(1,2),
+          group = as.character(sub_design$SampleType), style = 'ggplot2', ind.names = FALSE, 
           ellipse = TRUE, legend = TRUE, 
           size.xlabel = 20, size.ylabel = 20, size.axis = 25, pch = 15, cex = 5)
 
 dev.off()
-
 
 
 

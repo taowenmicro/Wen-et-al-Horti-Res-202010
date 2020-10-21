@@ -76,8 +76,9 @@ c$id=otu_table1$id
 dim(c)
 ##最后又将0替换为NA，方便excel使用
 #c[c==0] = NA
-write.table(c,"RET_a2缺失值处理后分泌物原始数据.txt",row.names = T,
-            col.names = T,sep = "/t")
+
+ c = c[c(1:6,13)]
+write.csv(c,"RET_a2缺失值处理后分泌物原始数据.csv")
 
 
 

@@ -1,6 +1,5 @@
 
 library("gplots")
-
 library("RColorBrewer")
 library("ggplot2")
 library("vegan")
@@ -9,7 +8,7 @@ rm(list=ls())
 #########下面来分类统计分泌物的信息
 ##############全部峰值数据来做统计#########去除磷酸之后进行分析
 # 读入mapping文件
-design = read.table("RET_map_R2.txt", header=T, row.names= 1, sep="\t") 
+design = read.table("RET_map_R.txt", header=T, row.names= 1, sep="\t") 
 # 读取OTU表，这里我选择的是整个otu表格，但是一般没有必要全部做差异的啊，相对丰度高的做做就可以了
 otu_table = read.delim("RET_a3筛选有化学式的分泌物并做一个分析.txt", row.names= 1, sep="\t",header=T,check.names=F)
 head(otu_table)
@@ -160,10 +159,10 @@ p=pheatmap(wt2,fontsize=6,cellwidth = 8, cellheight =3,cluster_rows = FALSE,
            annotation_col = annotation_col,annotation_row = annotation_row,
            labels_row = NULL,labels_col = NULL)
 
-ggsave("a8_热图重新CSF2和CRF2差异
 
 
 
+ggsave("a7_热图重新CSF1和CRF1差异.pdf", p, width = 10, height = 10)
 
 
 
