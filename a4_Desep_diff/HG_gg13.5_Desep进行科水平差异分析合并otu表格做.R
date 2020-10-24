@@ -1,5 +1,5 @@
 
-
+# BiocManager::install("pasilla")
 
 ###尝试在不同分类层次数据使用Desep包来做差异分析
 library(DESeq2)
@@ -12,19 +12,20 @@ rm(list=ls())
 #统计差异otu
 # 读入实验设计
 design = read.table("map_HG_kangbing_R.txt", header=T, row.names= 1, sep="\t") 
+
 # 读取OTU表,全部otu表没有抽平
 otu_table = read.delim("gg135_otu_table.txt", row.names= 1, sep="\t",header=T,check.names=F)
 #-物种注释文件
 taxonomy = read.delim("rep_seqs_tax.txt", row.names= 1,header=F, sep="\t")
 colnames(taxonomy) = c("kingdom","phylum","class","order","family","genus","species")
 taxonomy$id=rownames(taxonomy)
-tax = taxonomy[row.names(count),]
 
 #--双向匹配
 idx = rownames(design) %in% colnames(otu_table) 
 design = design[idx,]
 sub_design = design[idx,]
 count = otu_table[, rownames(sub_design)]
+tax = taxonomy[row.names(count),]
 
 
 
