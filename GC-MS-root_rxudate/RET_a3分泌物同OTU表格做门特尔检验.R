@@ -1,3 +1,4 @@
+library("vegan")
 #下面开始做两样本相关性检测用otu表格和分泌物数据做
 fenmiwu = read.delim("RET_a3筛选有化学式的分泌物CSF1和CRF1做门特尔检验.txt", header=T, row.names= 1,check.names=F) 
 head(fenmiwu)
@@ -5,9 +6,8 @@ dim(fenmiwu)
 fenmiwu1=fenmiwu[1:12]
 head(fenmiwu1)
 str(fenmiwu1)
-design = t(fenmiwu1)
-library("vegan")
-env.dist1 <- vegdist(scale(design), "euclid")
+
+env.dist1 <- vegdist(scale(t(fenmiwu1)), "euclid",na.rm = T)
 
 
 #?vegdist
