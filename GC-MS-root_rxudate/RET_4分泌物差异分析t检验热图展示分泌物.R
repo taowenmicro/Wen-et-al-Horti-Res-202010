@@ -131,7 +131,7 @@ head(wt)
 ######现在来做差异分析，得到差异分泌物
 wt =as.data.frame(wt)
 library(pheatmap)
-
+# install.packages("pheatmap")
 #设置颜色梯度"#1B9E77"
 color = colorRampPalette(c( "white", "#FFFFE5","#67001F"))(60)
 wt2<--log10(wt+0.000001)
