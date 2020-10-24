@@ -4,15 +4,20 @@ library(reshape2)
 library(ggdendro)
 library(grid)
 library(ggbiplot)
+library (reshape2)
+library(dplyr)
+# install.packages("BiocManager")
+# #安装的软件包可以更新到当前版本
+# BiocManager::install("devtools")
+# devtools::install_github("vqv/ggbiplot")
+# BiocManager::install("mixOmics")
+
 #读取数据力丰-B80分泌物原始数据.txt
 design = read.table("RET_map_R.txt", header=T, row.names= 1, sep="\t") 
 head(design)
 # 读取OTU表,全部otu表没有抽平
 Root_exudates = read.csv("RET_a2缺失值处理后分泌物原始数据.csv",row.names = 1)
-head(Root_exudates)
 
-
-dim(Root_exudates)
 ##有一个出峰值非常离谱，这里去掉Analyte 12，手动去除
 #design3<-Root_exudates[grep("Analyte 12",Root_exudates$id),]
 #idx=Root_exudates$id%in%design3$id
@@ -41,7 +46,7 @@ dim(count)
 count[n+1,]=apply(count[c(1:nrow(count)),],2,sum)
 count1=count[n+1,]  
 count1
-library (reshape2)
+
 count1$id=row.names(count1)
 fengdu <- melt (count1, id="id")
 head(fengdu)
@@ -56,9 +61,9 @@ summary(model)
 
 
 ########计算每一列的和作为总的分泌物
-library(dplyr)
+
 grou11<- group_by(fengdu,breaks)
-summarise11<- summarise(grou11,  mean(mean), sd(mean))
+summarise11<- dplyr::summarise(grou11,  mean(mean), sd(mean))
 ummarise11<- as.data.frame(summarise11)
 head(ummarise11)
 colnames(ummarise11)=c("break1","mean","sd")
@@ -135,27 +140,53 @@ p
 ggsave("a1_PCA 分泌物四组出图.pdf", p, width = 10, height = 6)
 
 #########################
-#转换成矩阵
+#转换成矩阵
 datatm <-as.matrix(count)
 XXt<-t(datatm)
-#PLS-DA分析，这里也是选取2个主成分
-?plsda
-plsda.datatm <-plsda(XXt, as.character(sub_design$SampleType), ncomp = 2)
-#unclass(plsda.datatm)
-#plsda.datatm$mat.c
+#PLS-DA分析，这里也是选取2个主成分
+
+plsda.datatm <-plsda(XXt, as.factor(sub_design$SampleType), ncomp = 2)
+unclass(plsda.datatm)
+names(plsda.datatm)
+
+plsda.datatm$mat.c
 #PLS-DA without centroids
 mi=c("#1B9E77" ,"#D95F02")
-datatm
 
 plotIndiv(plsda.datatm , comp = c(1,2),
           group = sub_design$SampleType, style = 'ggplot2' )
 pdf("a2_PLSDA分泌物四组出图.pdf", width = 10, height = 6)
 plotIndiv(plsda.datatm , comp = c(1,2),
-          group = as.character(sub_design$SampleType), style = 'ggplot2', ind.names = FALSE, 
-          ellipse = TRUE, legend = TRUE, 
+          group = sub_design$SampleType, style = 'ggplot2',ellipse = TRUE, 
           size.xlabel = 20, size.ylabel = 20, size.axis = 25, pch = 15, cex = 5)
 
 dev.off()
 
+#----提取数据作图
+
+a = unclass(plsda.datatm)
+#--提取坐标值
+plotdata = as.data.frame(a$variates$X)
+plotdata$SampleType = sub_design$SampleType
+#-提取解释度
+eig = a$explained_variance$X
+eig[1]
+
+# library(ggalt)
+
+p = ggplot(data = plotdata,aes(x=comp1,y=comp2,group=SampleType,color=SampleType))+geom_point(size=5)+
+  stat_ellipse(type = "t", linetype = 2)+
+  # geom_encircle(s_shape=1, expand=0) +
+  labs(x=paste("X-variate 1 (", format(100 * eig[1]), "%)", sep=""),
+       y=paste("X-variate 2 (", format(100 * eig[2] ), "%)", sep=""))+
+  labs(title = "PLS-DA") 
+p
+mi=c("#1B9E77" ,"#D95F02", "#7570B3","#E7298A")
+p=p+theme_bw()+scale_colour_manual(values = mi)+
+  labs(title = "PCA")+
+  theme(plot.title = element_text(hjust = 0.5))+
+  guides(color=guide_legend(title = NULL),shape=guide_legend(title = NULL))+
+  geom_hline(yintercept=0) + geom_vline(xintercept=0)
+p
 
 
