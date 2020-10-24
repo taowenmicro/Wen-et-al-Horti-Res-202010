@@ -112,11 +112,11 @@ p+stat_compare_means()+theme_bw()+
     
   )
 
-ggsave("E:/Shared_Folder/16s_and_RE_data_analyseHG_resistant/No1_16s/result_and_script/a1_alpha/PD_whole_tree_alpha.pdf", p, width = 10, height = 6)
+ggsave("./PD_whole_tree_alpha.pdf", p, width = 10, height = 6)
 
 #显著性检验
-alpha_wilcox.test = compare_means(PD_whole_tree_otus~SampleType, data = index, method = "wilcox.test")
-setwd("./a1_alpha/")
+alpha_wilcox.test = compare_means(PD_whole_tree ~ SampleType, data = index, method = "wilcox.test")
+
 write.table(alpha_wilcox.test,"PD_whole_tree_alpha_wilcox.test.txt",row.names = T,
             col.names = T,sep = "\t")
 
@@ -147,7 +147,7 @@ p=ggplot(df_summarise, aes(x = fenzu, y = chao1)) +
   theme(plot.title = element_text(hjust = 0.5),axis.title = element_text(size = 15),axis.text.x  = element_text(size = rel(2)),axis.ticks.y = element_blank(),axis.text.y = element_blank())
 p
 
-ggsave("E:/Shared_Folder/16s_and_RE_data_analyseHG_resistant/No1_16s/result_and_script/a1_alpha/chao1_alpha_barplot.pdf", p, width = 10, height = 10)
+ggsave("./chao1_alpha_barplot.pdf", p, width = 10, height = 10)
 
 #写一个循环同时将全部的alpha多样性指标出图
 #但是aes_string只能解决ggplot的出图问题，但是在很多的函数使用字符串未加引号，需要转化
@@ -169,41 +169,10 @@ for (i in 2:6) {
     theme(axis.text = element_text(size = 20,face = "bold"),
           legend.text = element_text(size = 15,face = "bold")
     )
-  setwd("E:/Shared_Folder/16s_and_RE_data_analyseHG_resistant/No1_16s/result_and_script/a1_alpha/")
+
   FileName <- paste(name_i,"_boxport", ".pdf", sep = "")
   ggsave(FileName, p, width = 10, height = 10)
   
   
 }
-setwd("E:/Shared_Folder/16s_and_RE_data_analyseHG_resistant/No1_16s/result_and_script/")
-
-#显著性检验目前我无法加入循环中
-alpha_wilcox.test = compare_means(index[3]~SampleType, data = index, method = "wilcox.test")
-setwd("./a1_alpha/")
-write.table(alpha_wilcox.test,"PD_whole_tree_alpha_wilcox.test.txt",row.names = T,
-            col.names = T,sep = "\t")
-
-
-
-name_i <- colnames(index[i]) 
-
-name_i = as.numeric(name_i)
-name_i = as.factor(name_i )
-?compare_means
-head(index)
-
-
-
-
-name_i <- colnames(index[i])
-iris_groups<- group_by(index, SampleType)
-df_summarise<- summarise(iris_groups, mean(name_i), sd(name_i))
-
-
-name_i <- colnames(index[i])
-name_i
-name_i =
-  string
-
-
 
