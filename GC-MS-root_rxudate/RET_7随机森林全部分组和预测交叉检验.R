@@ -3,6 +3,7 @@
 # 读入实验设计
 design = read.table("RET_map_R.txt", header=T, row.names= 1, sep="\t") 
 head(design)
+design = design[1:6,]
 # 读取OTU表,全部otu表没有抽平
 otu_table = read.delim("RET_a3筛选有化学式的分泌物并做一个分析.txt", row.names= 1, sep="\t",header=T,check.names=F)
 head(otu_table)
@@ -22,7 +23,7 @@ head(norm)
 library(randomForest)
 #######使用随机森林做分类########
 set.seed(315)
-iris.rf = randomForest(t(norm), design$SampleType, importance=TRUE, proximity=TRUE,ntree=1000)
+iris.rf = randomForest(t(norm), as.factor(design$SampleType), importance=TRUE, proximity=TRUE,ntree=1000)
 print(iris.rf)
 #######使用随机森林做分类########
 
